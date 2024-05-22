@@ -23,14 +23,13 @@ public:
 
 	UFUNCTION(BlueprintPure, Category = "Fabulous Utility|Object Utility",
 		Meta = (AutoCreateRefTerm = "Name", DeterminesOutputType = "Object", ReturnDisplayName = "Object"))
-	static UObject* DuplicateObject(const UObject* Object, UObject* Outer, const FName& Name = NAME_None);
+	static UObject* DuplicateObject(const UObject* Object, UObject* OuterObject, const FName& Name = NAME_None);
 
 	UFUNCTION(BlueprintCallable, Category = "Fabulous Utility|Object Utility",
 		DisplayName = "Does Implement Interface (Expanded)", Meta = (ExpandBoolAsExecs = "ReturnValue"))
 	static bool DoesImplementInterfaceExpanded(const UObject* Object, TSubclassOf<UInterface> InterfaceClass);
 
-	UFUNCTION(BlueprintCallable, Category = "Fabulous Utility|Object Utility",
-		DisplayName = "Does Implement Interface Soft (Expanded)",
+	UFUNCTION(BlueprintCallable, Category = "Fabulous Utility|Object Utility", DisplayName = "Does Implement Interface Soft (Expanded)",
 		Meta = (AutoCreateRefTerm = "InterfaceClass", ExpandBoolAsExecs = "ReturnValue"))
 	static bool DoesImplementInterfaceSoftExpanded(const UObject* Object, const TSoftClassPtr<UInterface>& InterfaceClass);
 };
@@ -45,9 +44,9 @@ inline FString UFuObjectUtility::GetObjectNameSoft(const TSoftObjectPtr<UObject>
 	return FPackageName::ObjectPathToObjectName(Object.ToString());
 }
 
-inline UObject* UFuObjectUtility::DuplicateObject(const UObject* Object, UObject* Outer, const FName& Name)
+inline UObject* UFuObjectUtility::DuplicateObject(const UObject* Object, UObject* OuterObject, const FName& Name)
 {
-	return ::DuplicateObject(Object, Outer, Name);
+	return ::DuplicateObject(Object, OuterObject, Name);
 }
 
 inline bool UFuObjectUtility::DoesImplementInterfaceExpanded(const UObject* Object, const TSubclassOf<UInterface> InterfaceClass)

@@ -6,7 +6,7 @@
 
 #include UE_INLINE_GENERATED_CPP_BY_NAME(FuAbilitySystemComponent)
 
-UFuAbilitySystemComponent* UFuAbilitySystemComponent::GetFuAbilitySystem(const UObject* Object, const bool bAllowFindComponent)
+UFuAbilitySystemComponent* UFuAbilitySystemComponent::GetFuAbilitySystem(const UObject* Object)
 {
 	const auto* Accessor{Cast<IAbilitySystemInterface>(Object)};
 	if (Accessor != nullptr)
@@ -19,7 +19,7 @@ UFuAbilitySystemComponent* UFuAbilitySystemComponent::GetFuAbilitySystem(const U
 	}
 
 	const auto* Actor{Cast<AActor>(Object)};
-	if (bAllowFindComponent && IsValid(Actor))
+	if (IsValid(Actor))
 	{
 		return Actor->FindComponentByClass<ThisClass>();
 	}
@@ -27,7 +27,7 @@ UFuAbilitySystemComponent* UFuAbilitySystemComponent::GetFuAbilitySystem(const U
 	return nullptr;
 }
 
-bool UFuAbilitySystemComponent::TryGetFuAbilitySystem(const UObject* Object, ThisClass*& AbilitySystem, const bool bAllowFindComponent)
+bool UFuAbilitySystemComponent::TryGetFuAbilitySystem(const UObject* Object, ThisClass*& AbilitySystem)
 {
 	const auto* Accessor{Cast<IAbilitySystemInterface>(Object)};
 	if (Accessor != nullptr)
@@ -40,7 +40,7 @@ bool UFuAbilitySystemComponent::TryGetFuAbilitySystem(const UObject* Object, Thi
 	}
 
 	const auto* Actor{Cast<AActor>(Object)};
-	if (bAllowFindComponent && IsValid(Actor))
+	if (IsValid(Actor))
 	{
 		AbilitySystem = Actor->FindComponentByClass<ThisClass>();
 		return IsValid(AbilitySystem);
@@ -57,8 +57,8 @@ void UFuAbilitySystemComponent::NotifyAbilityActivated(const FGameplayAbilitySpe
 	OnAbilityActivated.Broadcast(AbilityHandle, Ability);
 }
 
-void UFuAbilitySystemComponent::NotifyAbilityFailed(const FGameplayAbilitySpecHandle AbilityHandle, UGameplayAbility* Ability,
-                                                    const FGameplayTagContainer& FailureTags)
+void UFuAbilitySystemComponent::NotifyAbilityFailed(const FGameplayAbilitySpecHandle AbilityHandle,
+                                                    UGameplayAbility* Ability, const FGameplayTagContainer& FailureTags)
 {
 	Super::NotifyAbilityFailed(AbilityHandle, Ability, FailureTags);
 

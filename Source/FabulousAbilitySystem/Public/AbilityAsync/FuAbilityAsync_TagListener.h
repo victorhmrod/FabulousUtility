@@ -15,26 +15,26 @@ protected:
 	FGameplayTagContainer Tags;
 
 public:
-	UPROPERTY(BlueprintAssignable, Category = "Fabulous Utility|Tag Listener Ability Async")
+	UPROPERTY(BlueprintAssignable, Category = "Fabulous Ability System|Ability Async|Tag Listener")
 	FFuTagListenerDelegate OnTagAdded;
 
-	UPROPERTY(BlueprintAssignable, Category = "Fabulous Utility|Tag Listener Ability Async")
+	UPROPERTY(BlueprintAssignable, Category = "Fabulous Ability System|Ability Async|Tag Listener")
 	FFuTagListenerDelegate OnTagRemoved;
 
 public:
-	UFUNCTION(BlueprintCallable, Category = "Fabulous Utility|Ability Async", BlueprintInternalUseOnly)
+	UFUNCTION(BlueprintCallable, Category = "Fabulous Ability System|Ability Async", BlueprintInternalUseOnly)
 	static UFuAbilityAsync_TagListener* ListenForTagChangeOnActor(const AActor* Actor,
 	                                                              UPARAM(DisplayName = "Tag") FGameplayTag InTag);
 
-	UFUNCTION(BlueprintCallable, Category = "Fabulous Utility|Ability Async", BlueprintInternalUseOnly)
+	UFUNCTION(BlueprintCallable, Category = "Fabulous Ability System|Ability Async", BlueprintInternalUseOnly)
 	static UFuAbilityAsync_TagListener* ListenForTagsChangeOnActor(const AActor* Actor,
 	                                                               UPARAM(DisplayName = "Tags") FGameplayTagContainer InTags);
 
-	UFUNCTION(BlueprintCallable, Category = "Fabulous Utility|Ability Async", BlueprintInternalUseOnly)
+	UFUNCTION(BlueprintCallable, Category = "Fabulous Ability System|Ability Async", BlueprintInternalUseOnly)
 	static UFuAbilityAsync_TagListener* ListenForTagChange(UAbilitySystemComponent* AbilitySystem,
 	                                                       UPARAM(DisplayName = "Tag") FGameplayTag InTag);
 
-	UFUNCTION(BlueprintCallable, Category = "Fabulous Utility|Ability Async", BlueprintInternalUseOnly)
+	UFUNCTION(BlueprintCallable, Category = "Fabulous Ability System|Ability Async", BlueprintInternalUseOnly)
 	static UFuAbilityAsync_TagListener* ListenForTagsChange(UAbilitySystemComponent* AbilitySystem,
 	                                                        UPARAM(DisplayName = "Tags") FGameplayTagContainer InTags);
 
@@ -44,5 +44,5 @@ public:
 	virtual void EndAction() override;
 
 private:
-	void AbilitySystem_OnTagChanged(FGameplayTag Tag, int32 Count) const;
+	void AbilitySystem_OnTagChanged(FGameplayTag Tag, int32 TagCount) const;
 };

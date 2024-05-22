@@ -14,20 +14,20 @@ protected:
 	FGameplayTagContainer Tags;
 
 public:
-	UPROPERTY(BlueprintAssignable, Category = "Fabulous Utility|Tag Listener Ability Task")
+	UPROPERTY(BlueprintAssignable, Category = "Fabulous Ability System|Ability Tasks|Tag Listener")
 	FFuTagListenerDelegate OnTagAdded;
 
-	UPROPERTY(BlueprintAssignable, Category = "Fabulous Utility|Tag Listener Ability Task")
+	UPROPERTY(BlueprintAssignable, Category = "Fabulous Ability System|Ability Tasks|Tag Listener")
 	FFuTagListenerDelegate OnTagRemoved;
 
 public:
-	UFUNCTION(BlueprintCallable, Category = "Fabulous Utility|Ability Tasks", BlueprintInternalUseOnly,
-		Meta = (HidePin = "OwningAbility", DefaultToSelf = "OwningAbility"))
+	UFUNCTION(BlueprintCallable, Category = "Fabulous Ability System|Ability Tasks",
+		BlueprintInternalUseOnly, Meta = (HidePin = "OwningAbility", DefaultToSelf = "OwningAbility"))
 	static UFuAbilityTask_TagListener* WaitForTagChange(UGameplayAbility* OwningAbility,
 	                                                    UPARAM(DisplayName = "Tag") FGameplayTag InTag);
 
-	UFUNCTION(BlueprintCallable, Category = "Fabulous Utility|Ability Tasks", BlueprintInternalUseOnly,
-		Meta = (HidePin = "OwningAbility", DefaultToSelf = "OwningAbility"))
+	UFUNCTION(BlueprintCallable, Category = "Fabulous Ability System|Ability Tasks",
+		BlueprintInternalUseOnly, Meta = (HidePin = "OwningAbility", DefaultToSelf = "OwningAbility"))
 	static UFuAbilityTask_TagListener* WaitForTagsChange(UGameplayAbility* OwningAbility,
 	                                                     UPARAM(DisplayName = "Tags") FGameplayTagContainer InTags);
 
@@ -37,5 +37,5 @@ protected:
 	virtual void OnDestroy(bool bInOwnerFinished) override;
 
 private:
-	void AbilitySystem_OnTagChanged(FGameplayTag Tag, int32 Count) const;
+	void AbilitySystem_OnTagChanged(FGameplayTag Tag, int32 TagCount) const;
 };

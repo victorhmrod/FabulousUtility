@@ -19,32 +19,32 @@ protected:
 	uint8 bPredictedTimeAllowed : 1;
 
 public:
-	UPROPERTY(BlueprintAssignable, Category = "Fabulous Utility|Effect Time Listener Ability Async")
-	FFuEffectTimeListenerDelegate OnEffectStated;
+	UPROPERTY(BlueprintAssignable, Category = "Fabulous Ability System|Ability Async|Effect Time Listener")
+	FFuEffectTimeListenerDelegate OnEffectStarted;
 
-	UPROPERTY(BlueprintAssignable, Category = "Fabulous Utility|Effect Time Listener Ability Async")
+	UPROPERTY(BlueprintAssignable, Category = "Fabulous Ability System|Ability Async|Effect Time Listener")
 	FFuEffectTimeListenerDelegate OnEffectEnded;
 
 public:
-	UFUNCTION(BlueprintCallable, Category = "Fabulous Utility|Ability Async", BlueprintInternalUseOnly)
+	UFUNCTION(BlueprintCallable, Category = "Fabulous Ability System|Ability Async", BlueprintInternalUseOnly)
 	static UFuAbilityAsync_EffectTimeListener* ListenForEffectTimeChangeOnActor(
 		const AActor* Actor,
 		UPARAM(DisplayName = "Effect Tag") FGameplayTag InEffectTag,
 		bool bAllowPredictedTime = false);
 
-	UFUNCTION(BlueprintCallable, Category = "Fabulous Utility|Ability Async", BlueprintInternalUseOnly)
+	UFUNCTION(BlueprintCallable, Category = "Fabulous Ability System|Ability Async", BlueprintInternalUseOnly)
 	static UFuAbilityAsync_EffectTimeListener* ListenForEffectsTimeChangeOnActor(
 		const AActor* Actor,
 		UPARAM(DisplayName = "Effect Tags") FGameplayTagContainer InEffectTags,
 		bool bAllowPredictedTime = false);
 
-	UFUNCTION(BlueprintCallable, Category = "Fabulous Utility|Ability Async", BlueprintInternalUseOnly)
+	UFUNCTION(BlueprintCallable, Category = "Fabulous Ability System|Ability Async", BlueprintInternalUseOnly)
 	static UFuAbilityAsync_EffectTimeListener* ListenForEffectTimeChange(
 		UFuAbilitySystemComponent* AbilitySystem,
 		UPARAM(DisplayName = "Effect Tag") FGameplayTag InEffectTag,
 		bool bAllowPredictedTime = false);
 
-	UFUNCTION(BlueprintCallable, Category = "Fabulous Utility|Ability Async", BlueprintInternalUseOnly)
+	UFUNCTION(BlueprintCallable, Category = "Fabulous Ability System|Ability Async", BlueprintInternalUseOnly)
 	static UFuAbilityAsync_EffectTimeListener* ListenForEffectsTimeChange(
 		UFuAbilitySystemComponent* AbilitySystem,
 		UPARAM(DisplayName = "Effect Tags") FGameplayTagContainer InEffectTags,
@@ -56,14 +56,14 @@ public:
 	virtual void EndAction() override;
 
 private:
-	void RefreshEffectTimeRemainingAndDurationForTag(const FGameplayTag& EffectTag) const;
+	void BroadcastEffectTimeRemainingAndDurationForTag(const FGameplayTag& EffectTag) const;
 
 	void AbilitySystem_OnActiveGameplayEffectAdded(UAbilitySystemComponent* AbilitySystem, const FGameplayEffectSpec& EffectSpecification,
 	                                               FActiveGameplayEffectHandle EffectHandle) const;
 
 	void AbilitySystem_OnActiveGameplayEffectRemoved(const FActiveGameplayEffect& ActiveEffect) const;
 
-	void AbilitySystem_OnTagChanged(FGameplayTag Tag, int32 Count) const;
+	void AbilitySystem_OnTagChanged(FGameplayTag Tag, int32 TagCount) const;
 
 	void ActiveEffect_OnTimeChanged(FActiveGameplayEffectHandle EffectHandle, float StartTime, float Duration) const;
 };

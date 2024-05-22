@@ -20,14 +20,14 @@ void UFuAnyTagRemovalRequirementEffectComponent::PostInitProperties()
 }
 
 #if WITH_EDITOR
-void UFuAnyTagRemovalRequirementEffectComponent::PostEditChangeProperty(FPropertyChangedEvent& PropertyChangedEvent)
+void UFuAnyTagRemovalRequirementEffectComponent::PostEditChangeProperty(FPropertyChangedEvent& ChangedEvent)
 {
-	if (PropertyChangedEvent.GetMemberPropertyName() == GET_MEMBER_NAME_CHECKED(ThisClass, RemovalRequirementTags))
+	if (ChangedEvent.GetMemberPropertyName() == GET_MEMBER_NAME_CHECKED(ThisClass, RemovalRequirementTags))
 	{
 		RefreshRemovalRequirementTags();
 	}
 
-	Super::PostEditChangeProperty(PropertyChangedEvent);
+	Super::PostEditChangeProperty(ChangedEvent);
 }
 #endif
 
@@ -77,20 +77,20 @@ void UFuAnyTagRemovalRequirementEffectComponent::RefreshRemovalRequirementTags()
 	RemovalRequirementTags.UpdateInheritedTagProperties(IsValid(ParentComponent) ? &ParentComponent->RemovalRequirementTags : nullptr);
 }
 
-void UFuAnyTagRemovalRequirementEffectComponent::AbilitySystem_OnTagChanged(const FGameplayTag Tag, const int32 Count,
+void UFuAnyTagRemovalRequirementEffectComponent::AbilitySystem_OnTagChanged(const FGameplayTag Tag, const int32 TagCount,
                                                                             const FActiveGameplayEffectHandle EffectHandle) const
 {
 	auto* AbilitySystem{EffectHandle.GetOwningAbilitySystemComponent()};
 
-	if (IsValid(AbilitySystem) && Count > 0)
+	if (IsValid(AbilitySystem) && TagCount > 0)
 	{
 		AbilitySystem->RemoveActiveGameplayEffect(EffectHandle);
 	}
 }
 
-void UFuAnyTagRemovalRequirementEffectComponent::Effect_OnRemoved(
-	const FGameplayEffectRemovalInfo& RemovalInfo, UAbilitySystemComponent* AbilitySystem,
-	TArray<FDelegateHandle> TagChangedDelegateHandles) const
+void UFuAnyTagRemovalRequirementEffectComponent::Effect_OnRemoved(const FGameplayEffectRemovalInfo& RemovalInfo,
+                                                                  UAbilitySystemComponent* AbilitySystem,
+                                                                  TArray<FDelegateHandle> TagChangedDelegateHandles) const
 {
 	for (auto i{0}; i < TagChangedDelegateHandles.Num(); i++)
 	{
